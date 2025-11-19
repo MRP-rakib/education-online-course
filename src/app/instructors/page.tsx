@@ -1,7 +1,7 @@
 'use client'
 import PageHeader from '@/components/utils/PageHeader'
 import { usePathname } from 'next/navigation'
-import React from 'react'
+
 
 function Instructors() {
     const pathname = usePathname()

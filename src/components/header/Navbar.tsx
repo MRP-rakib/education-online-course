@@ -45,7 +45,7 @@ function Navbar() {
               <span className="text-2xl font-semibold text-gray-900">Edumon</span>
             </Link>
           </div>
-          <nav className="hidden lg:flex lg:gap-8 text-sm md:text-base font-medium" aria-label="Primary navigation">
+          <nav className="hidden lg:flex gap-12 text-sm md:text-base font-medium" aria-label="Primary navigation">
             {LINKS.map((l) => (
               <Link
                 key={l.label}
