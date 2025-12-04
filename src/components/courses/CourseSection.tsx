@@ -1,51 +1,20 @@
+'use client'
 import Container from '@/utils/Container'
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect } from 'react'
 import CoursesCard from './CoursesCard'
+import { useAppDispatch, useAppSelector } from '@/redux/hook/hooks'
+import { courses } from '@/redux/feature/coursesSlice'
 
 function CourseSection() {
-  const courses = [
-    
-    {
-      id: '2',
-      image: '/image1.webp',
-      title: 'React - The Complete Guide',
-      category: 'Frontend',
-      rating: 4.9,
-      totalStudents: 3120,
-      totalLessons: 52,
-      totalHours: 40,
-      instructor: 'Sarah Johnson',
-      avater:'/persion1.png',
-      price: 79,
-    },
-    {
-      id: '3',
-      image: '/image2.jpg',
-      title: 'Node.js Backend Development',
-      category: 'Backend',
-      rating: 4.7,
-      totalStudents: 1890,
-      totalLessons: 38,
-      totalHours: 28,
-      instructor: 'Mike Chen',
-      avater:'/persion1.png',
-      price: 89,
-    },
-    {
-      id: '4',
-      image: '/image3.jpg',
-      title: 'UI/UX Design Masterclass',
-      category: 'Design',
-      rating: 4.6,
-      totalStudents: 1450,
-      totalLessons: 35,
-      totalHours: 24,
-      instructor: 'Emma Davis',
-      avater:'/persion1.png',
-      price: 69,
-    },
-  ]
+  const {data,loading,error} =useAppSelector(state=>state.courses)
+  const dispatch = useAppDispatch()
+
+  useEffect(()=>{
+    dispatch(courses())
+  },[dispatch])
+
+console.log(data);
 
   return (
     <section className="py-16 lg:py-24">
@@ -61,7 +30,7 @@ function CourseSection() {
               </Link>
             </div>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {courses.map((course) => (
+                {data?.map((course) => (
                   <CoursesCard
                     key={course.id}
                     id={course.id}
@@ -69,11 +38,11 @@ function CourseSection() {
                     title={course.title}
                     category={course.category}
                     rating={course.rating}
-                    totalStudents={course.totalStudents}
-                    totalLessons={course.totalLessons}
-                    totalHours={course.totalHours}
+                    total_students={course.total_students}
+                    total_lessons={course.total_lessons}
+                    total_hours={course.total_hours}
                     instructor={course.instructor}
-                    avater={course.avater}
+                    // avater={course.instructor.}
                     price={course.price}
                   />
                 ))}
