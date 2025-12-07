@@ -1,6 +1,5 @@
 import Container from '@/utils/Container'
 import Link from 'next/link'
-import React from 'react'
 import InstructorsCard from './InstructorsCard'
 
 function InstructorSection() {

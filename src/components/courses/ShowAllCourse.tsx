@@ -170,7 +170,7 @@ function ShowAllCourse() {
         {currentCourses.length!==0?(
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7.5 my-10">
           {currentCourses.map(course => (
-            <CoursesCard key={course.id} image={course.image} title={course.title} total_hours={course.total_hours}
+            <CoursesCard key={course.id} id={course.id} image={course.image} title={course.title} total_hours={course.total_hours}
               total_lessons={course.total_lessons} total_students={course.total_students}
               category={course.title} price={course.price} instructor={course.instructor}
               rating={course.rating}/>
@@ -192,9 +192,9 @@ function ShowAllCourse() {
           {[...Array(totalPage)].map((_, i) => (
             <button
               key={i}
-              onClick={() => handlePageClick(i + 1)} // ✅ fixed here
+              onClick={() => handlePageClick(i + 1)} 
               className={`px-4 py-2 rounded-lg border transition ${currentPage === i + 1
-                ? 'bg-black text-white border-black'
+                ? 'bg-black text-gray-600 border-black '
                 : 'border-gray-300 text-gray-600 hover:bg-gray-100'
                 }`}
             >

@@ -4,23 +4,10 @@ import Link from 'next/link'
 import { Star, Users, BookOpen, Clock } from 'lucide-react'
 import { Courses } from '@/types/courses'
 
-// interface CoursesCardProps {
-//   id?: string
-//   image?: string
-//   title: string
-//   category: string
-//   rating: number
-//   totalStudents: number
-//   totalLessons: number
-//   totalHours: number
-//   instructor: string
-//   avater:string
-//   price?: number
-// }
 
 export default function CoursesCard({
-  id = '1',
-  image = '/placeholder-course.jpg',
+  id,
+  image,
   title,
   category,
   total_students,
@@ -30,9 +17,11 @@ export default function CoursesCard({
   // avater,
   price,
 }: Courses) {
+
+  
   return (
-    <Link href={`/courses/${id}`}>
-      <div className="h-full overflow-hidden rounded-2xl bg-white shadow-sm transition hover:shadow-lg">
+  
+      <div key={id} className="h-full overflow-hidden rounded-2xl bg-white shadow-sm transition hover:shadow-lg">
         {/* Image container with price badge */}
         <div className="relative h-64 w-full overflow-hidden bg-gray-100">
           {image&&(
@@ -59,7 +48,9 @@ export default function CoursesCard({
             </div>
             <span className="text-sm font-semibold text-gray-700">({total_students})</span>
           </div>
+          <Link href={`course/${id}`}>
           <h3 className="text-xl font-bold leading-tight text-gray-900">{title}</h3>
+          </Link>
           <div className="flex items-center gap-6 text-sm text-gray-600">
             <div className="flex items-center gap-2">
               <Users className="h-4 w-4" />
@@ -95,6 +86,6 @@ export default function CoursesCard({
           </div>
         </div>
       </div>
-    </Link>
+    
   )
 }

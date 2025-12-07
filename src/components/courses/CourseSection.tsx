@@ -14,7 +14,6 @@ function CourseSection() {
     dispatch(courses())
   },[dispatch])
 
-console.log(data);
 
   return (
     <section className="py-16 lg:py-24">
@@ -30,7 +29,7 @@ console.log(data);
               </Link>
             </div>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {data?.map((course) => (
+                {data?.slice(0,3).map((course) => (
                   <CoursesCard
                     key={course.id}
                     id={course.id}
