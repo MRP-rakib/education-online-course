@@ -9,9 +9,11 @@ import VideoPlayer from '@/utils/VideoPlayer'
 import Link from 'next/link'
 import Container from '@/utils/Container'
 import Image from 'next/image'
-import { Book, Languages, Timer, User2, VideoIcon } from 'lucide-react'
+import { Book, Languages, Timer, User2 } from 'lucide-react'
 import CoursesCard from '@/components/courses/CoursesCard'
 import { suggestionCourses } from '@/redux/feature/suggetionsSlice'
+import InstructorTab from '@/components/courses/InstructorTab'
+import LessonsTab from '@/components/courses/LessonsTab'
 
 function Course() {
   const { data, error, loading } = useAppSelector(state => state.singleCourse)
@@ -53,7 +55,7 @@ useEffect(() => {
       <PageHeader path={path} />
 
       <Container>
-        <div className='mt-8 lg:mt-12 grid grid-cols-1 lg:grid-cols-[70%_30%] gap-8 '>
+        <div className='mt-8 lg:mt-12 grid grid-cols-1 lg:grid-cols-[70%_30%] items-start gap-8 '>
           <div className='w-full'>
             <VideoPlayer video={video} />
             <div className='pt-4 flex flex-col gap-4'>
@@ -113,14 +115,15 @@ useEffect(() => {
                 {activeTab === "curriculum" && 
                 <div className='flex flex-col gap-2'>
                   {data?.lessons?.map(less=>(
-                    <div key={less.id} onClick={()=>setVideo(less.video)} className={`flex items-center justify-between cursor-pointer
-                    rounded bg-gray-100 py-4 px-4 ${video===less.video&&'bg-gray-300'}`}>
-                      <div className='flex items-center gap-4'>
-                         <VideoIcon/>
-                       <p>{less.topic}</p>
-                      </div>
-                      <span>{less.duration} Minutes</span>
-                    </div>
+                    <LessonsTab 
+                    key={less.id} 
+                    id={less.id}
+                    onclick={() => setVideo(video)}
+                    topic={less.topic}
+                    video={less.video}
+                    duration={less.duration}
+                    order={less.order}
+                    />
                   ))}
                 </div>
                 }
@@ -128,25 +131,15 @@ useEffect(() => {
                 {activeTab === "instructor" && (
                   <div className="flex flex-col gap-4">
                     {data?.instructor?.map(inst => (
-                      <div key={inst.id} className="flex gap-3">
-                        <div className="h-48 w-48 bg-gray-300 overflow-hidden">
-                      <Image
-                        src={inst.avatar}
-                        alt={inst.name}
-                        width={48}
-                        height={48}
-                        unoptimized
-                        className="h-full w-full object-cover"
-                      />
-                    </div>
-                        <div className='flex flex-col gap-1'>
-                          <h4 className="font-semibold text-[18px] lg:text-2xl">{inst.name}</h4>
-                          <p className='text-blue-500'>Web designer</p>
-                          <p className='text-gray-500'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Velit ipsa asperiores debitis ad ipsum saepe expedita nihil blanditiis eum aperiam.</p>
-                          <p className="">Total Courses: {inst.total_courses}</p>
-                          <p className="">Total Students: {inst.total_student}</p>
-                        </div>
-                      </div>
+                    <InstructorTab key={inst.id}
+                    id={inst.id}
+                    name={inst.name}
+                    avatar={inst.avatar}
+                    department={inst.department}
+                    description={inst.department}
+                    total_courses={inst.total_courses}
+                    total_student={inst.total_student}
+                    />
                     ))}
                   </div>
                 )}
@@ -154,7 +147,7 @@ useEffect(() => {
             </div>
           </div>
           <div className='flex-1'>
-            <div className=' shadow-2xl p-7.5 rounded'>
+            <div className=' shadow-xl p-7.5 rounded'>
                <h4 className='text-2xl font-bold'>Courses Features</h4>
                <div className='flex flex-col'>
                 <div className='flex items-center justify-between py-4 px-2 border-b border-gray-200'>
@@ -173,7 +166,7 @@ useEffect(() => {
                 <div className='flex items-center justify-between py-4 px-2 border-b border-gray-200'>
                  <span className='flex gap-1 items-center text-[14px] text-blue-600'><Languages/> <p className='text-base text-black'>Language</p></span>
 
-                  <span>English</span>
+                  <span>{data?.language}</span>
                 </div>
                 <div className='py-10 flex flex-col items-center gap-7.5 justify-center'>
                   <span className='text-4xl text-blue-600'>${data?.price}</span>

@@ -11,14 +11,17 @@ export interface Courses {
   instructor?: Instructor[];
   category: string;
   rating: number;
+  language?:string;
   last_update?: string; 
 }
 export interface Instructor {
  id:string
  name:string
- avatar:string,
- total_courses:number,
- total_student:number
+ avatar:string
+ description?:string
+ department?:string
+ total_courses?:number
+ total_student?:number
 
 
 }
@@ -28,4 +31,5 @@ export interface lessons{
   video:string,
   topic:string,
   duration:number
+  onclick:()=>void
 }
