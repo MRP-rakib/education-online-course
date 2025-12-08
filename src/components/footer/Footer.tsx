@@ -72,7 +72,7 @@ function Footer() {
             <div>
               <h4 className="text-sm font-semibold text-white">Get updates</h4>
               <p className="mt-4 text-sm text-gray-300">Subscribe to our newsletter to get the latest course releases and offers.</p>
-              <form className="mt-4 flex md:flex-col 3xl:flex-row w-full max-w-sm gap-2">
+              <form className="mt-4 flex flex-col 3xl:flex-row w-full max-w-sm gap-2">
                 <input type="email" placeholder='Your Email' className='px-1 py-1 bg-white text-black outline-blue-600 rounded-md' />
                 <button className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700">Subscribe</button>
               </form>

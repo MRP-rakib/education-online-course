@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import coursesReducer from '@/redux/feature/coursesSlice'
 import singleCourseReducer from '@/redux/feature/singleCourseSlice'
+import suggetionsCourseReducer from '@/redux/feature/suggetionsSlice'
 
 export const store = configureStore({
   reducer: {
    courses:coursesReducer,
    singleCourse:singleCourseReducer,
+   suggetionsCourse:suggetionsCourseReducer,
   },
 })
 

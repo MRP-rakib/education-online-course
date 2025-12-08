@@ -33,15 +33,14 @@ function CourseSection() {
                   <CoursesCard
                     key={course.id}
                     id={course.id}
-                    image={course.image}
+                    image={course?.image}
                     title={course.title}
                     category={course.category}
                     rating={course.rating}
                     total_students={course.total_students}
                     total_lessons={course.total_lessons}
                     total_hours={course.total_hours}
-                    instructor={course.instructor}
-                    // avater={course.instructor.}
+                    instructor={course?.instructor}
                     price={course.price}
                   />
                 ))}
