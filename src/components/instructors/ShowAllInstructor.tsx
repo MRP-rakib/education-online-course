@@ -83,7 +83,7 @@ function ShowAllCourse() {
                     </div>
                 ) : (
                     <div className=" py-15 flex items-center justify-center">
-                        <h4 className="text-2xl lg:text-4xl font-black">No Courses Available</h4>
+                        <h4 className="text-2xl lg:text-4xl font-black">No Instructors Available</h4>
                     </div>
                 )}
 
