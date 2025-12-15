@@ -22,6 +22,9 @@ export interface Instructor {
  department?:string
  total_courses?:number
  total_student?:number
+ facebook?:string
+ linkedin?:string
+ twitter?:string
 
 
 }

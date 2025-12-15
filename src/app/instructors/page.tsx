@@ -1,7 +1,7 @@
 'use client'
 import PageHeader from '@/components/utils/PageHeader'
 import { usePathname } from 'next/navigation'
-
+import ShowAllInstructor from '@/components/instructors/ShowAllInstructor'
 
 function Instructors() {
     const pathname = usePathname()
@@ -9,7 +9,7 @@ function Instructors() {
   return (
     <div>
         <PageHeader path={path}/>
-        
+        <ShowAllInstructor/>
     </div>
   )
 }
