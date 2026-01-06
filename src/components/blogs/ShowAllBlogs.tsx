@@ -6,30 +6,9 @@ import BlogCard from "./BlogCard";
 import { getBlog } from "@/redux/feature/blogSlice";
 import SkeletonBlogCard from "../utils/SkeletionBlog";
 
-// import InstructorsCard from "./InstructorsCard";
-// import { instructor } from "@/redux/feature/instructorSlice";
-
-// const data = [
-//   {
-//     id: "1",
-//     image: "https://example.com/image1.jpg",
-//     date: "2025-12-27",
-//     category: "Technology",
-//     title: "AI Revolution in 2025",
-//     description: "Exploring how AI is transforming industries and everyday life in 2025."
-//   },
-//   {
-//     id: "2",
-//     image: "https://example.com/image2.jpg",
-//     date: "2025-12-26",
-//     category: "Health",
-//     title: "Wellness Trends This Year",
-//     description: "A look into the top wellness and fitness trends dominating 2025."
-//   }
-// ];
 
 function ShowAllBlog() {
-    const { data, loading, error } = useAppSelector(state => state.blog)
+    const { data, loading,} = useAppSelector(state => state.blog)
     const dispatch = useAppDispatch()
     useEffect(() => {
         dispatch(getBlog())
