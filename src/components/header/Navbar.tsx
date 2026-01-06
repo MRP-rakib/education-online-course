@@ -4,6 +4,9 @@ import Link from 'next/link'
 import { Menu, X } from 'lucide-react'
 import Container from '@/utils/Container'
 import { usePathname } from 'next/navigation'
+import Image from 'next/image'
+import { useAppDispatch, useAppSelector } from '@/redux/hook/hooks'
+import { profile } from '@/redux/feature/profileSlice'
 
 const LINKS = [
   { label: 'Home', href: '/' },
@@ -22,6 +25,8 @@ interface mobilePropsType{
 function Navbar() {
   const pathname = usePathname()
   const [mobile, setMobile] = useState(false)
+  const {user} = useAppSelector(state=>state.profile)
+  const dispatch = useAppDispatch()
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
       if (e.key === 'Escape') setMobile(false)
@@ -29,6 +34,11 @@ function Navbar() {
     if (mobile) document.addEventListener('keydown', onKey)
     return () => document.removeEventListener('keydown', onKey)
   }, [mobile])
+useEffect(()=>{
+   dispatch(profile())
+},[dispatch])
+
+
 
   return (
     <header className="w-full bg-white">
@@ -57,20 +67,96 @@ function Navbar() {
             ))}
           </nav>
           <div className="flex items-center gap-4">
-            <div className="hidden lg:flex md:items-center md:gap-4">
-              <Link href="/login" className="text-sm font-medium text-gray-700 hover:text-gray-900">Login</Link>
-              <Link href="/register" className="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700">Register</Link>
-            </div>
-            <button
-              type="button"
-              aria-label="Toggle menu"
-              aria-expanded={mobile}
-              onClick={() => setMobile((s) => !s)}
-              className="lg:hidden inline-flex items-center justify-center rounded-md p-2 text-gray-600 hover:bg-gray-100"
-            >
-              {mobile ? <X size={20} /> : <Menu size={20} />}
-            </button>
-          </div>
+  {user ? (
+    <div className="relative group">
+  {/* Profile Image */}
+  <div className="relative w-12 h-12 rounded-full overflow-hidden cursor-pointer">
+    <Image
+      src={"/persion1.png"}
+      alt="profile"
+      fill
+      className="object-cover"
+    />
+  </div>
+
+  {/* Dropdown */}
+  <div
+    className="
+      absolute right-0 top-full mt-2 w-64
+      rounded-lg bg-white shadow-lg border
+      opacity-0 invisible
+      group-hover:opacity-100 group-hover:visible
+      transition-all duration-200 z-100
+    "
+  >
+    {/* User Info */}
+    <div className="p-4 flex items-center gap-3">
+      <div className="relative w-10 h-10 rounded-full overflow-hidden">
+        <Image
+          src={user.image || "/persion1.png"}
+          alt="profile"
+          fill
+          className="object-cover"
+        />
+      </div>
+
+      <div className="flex flex-col">
+        <span className="text-sm font-semibold text-gray-900">
+          {user.first_name+' '+user.last_name}
+        </span>
+        <span className="text-xs text-gray-500 break-all">
+          {user.email}
+        </span>
+      </div>
+    </div>
+
+    <div className="border-t">
+      <Link
+        href="/dashboard"
+        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+      >
+        Dashboard
+      </Link>
+
+      <button
+        
+        className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50"
+      >
+        Logout
+      </button>
+    </div>
+  </div>
+</div>
+
+
+  ) : (
+    <div className="hidden lg:flex items-center gap-4">
+      <Link
+        href="/login"
+        className="text-sm font-medium text-gray-700 hover:text-gray-900"
+      >
+        Login
+      </Link>
+      <Link
+        href="/register"
+        className="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700"
+      >
+        Register
+      </Link>
+    </div>
+  )}
+
+  <button
+    type="button"
+    aria-label="Toggle menu"
+    aria-expanded={mobile}
+    onClick={() => setMobile((s) => !s)}
+    className="lg:hidden inline-flex items-center justify-center rounded-md p-2 text-gray-600 hover:bg-gray-100"
+  >
+    {mobile ? <X size={20} /> : <Menu size={20} />}
+  </button>
+</div>
+
         </div>
       </Container>
       {mobile && <MobileMenu onClose={() => setMobile(false)} pathname={pathname} />}

@@ -2,17 +2,37 @@ import Container from "@/utils/Container"
 
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/redux/hook/hooks";
+import BlogCard from "./BlogCard";
+import { getBlog } from "@/redux/feature/blogSlice";
+import SkeletonBlogCard from "../utils/SkeletionBlog";
 
-import InstructorsCard from "./InstructorsCard";
-import { instructor } from "@/redux/feature/instructorSlice";
-import SkeletonCard from "../utils/SkeletonCard";
+// import InstructorsCard from "./InstructorsCard";
+// import { instructor } from "@/redux/feature/instructorSlice";
 
+// const data = [
+//   {
+//     id: "1",
+//     image: "https://example.com/image1.jpg",
+//     date: "2025-12-27",
+//     category: "Technology",
+//     title: "AI Revolution in 2025",
+//     description: "Exploring how AI is transforming industries and everyday life in 2025."
+//   },
+//   {
+//     id: "2",
+//     image: "https://example.com/image2.jpg",
+//     date: "2025-12-26",
+//     category: "Health",
+//     title: "Wellness Trends This Year",
+//     description: "A look into the top wellness and fitness trends dominating 2025."
+//   }
+// ];
 
-function ShowAllCourse() {
-    const { data, loading} = useAppSelector(state => state.instructor)
+function ShowAllBlog() {
+    const { data, loading, error } = useAppSelector(state => state.blog)
     const dispatch = useAppDispatch()
     useEffect(() => {
-        dispatch(instructor())
+        dispatch(getBlog())
     }, [dispatch])
     const itemPerPage = 6
     const totalPage = Math.ceil(data.length / itemPerPage)
@@ -32,35 +52,31 @@ function ShowAllCourse() {
 
     const indexOfLastItem = currentPage * itemPerPage
     const indexOfFirstItem = indexOfLastItem - itemPerPage
-    const currentInstructors = data.slice(indexOfFirstItem, indexOfLastItem)
+    const currentBlog = data.slice(indexOfFirstItem, indexOfLastItem)
     const showCount = indexOfLastItem > data.length ? data.length : indexOfLastItem
     return (
         <div className="mt-8 md:mt-12 lg:mt-16">
             <Container>
-                <p>Show {showCount} <span className="text-blue-600">Instructors</span> of {data.length} result</p>
-                {loading ? (
+                <p>Show {showCount} <span className="text-blue-600">Blogs</span> of {data.length} result</p>
+                {loading?(
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7.5 my-10">
-                        {Array.from({ length: 6 }).map((_, i) => (
-                            <SkeletonCard key={i} />
-                        ))}
-                    </div>
-                ) 
-                : currentInstructors.length !== 0 ? (
+                                                      {Array.from({ length: 6 }).map((_, i) => (
+                                                          <SkeletonBlogCard key={i} />
+                                                      ))}
+                                                  </div>
+                ):
+                currentBlog.length !== 0 ? (
                     <div>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7.5 my-10">
-                            {currentInstructors.map(ins => (
-                                <InstructorsCard
-                                    key={ins.id}
-                                    id={ins.id}
-                                    avatar={ins.avatar}
-                                    name={ins.name}
-                                    department={ins.department}
-                                    description={ins.description}
-                                    total_student={ins.total_student}
-                                    total_courses={ins.total_courses}
-                                    facebook={ins.facebook}
-                                    linkedin={ins.linkedin}
-                                    twitter={ins.twitter}
+                            {currentBlog.map(blog => (
+                                <BlogCard
+                                key={blog.id}
+                                id={blog.id}
+                                image={blog.image}
+                                title={blog.title}
+                                published_date={blog.published_date}
+                                description={blog.description}
+                                category={blog.category}    
                                 />
                             ))}
                         </div>
@@ -91,7 +107,7 @@ function ShowAllCourse() {
                     </div>
                 ) : (
                     <div className=" py-15 flex items-center justify-center">
-                        <h4 className="text-2xl lg:text-4xl font-black">No Instructors Available</h4>
+                        <h4 className="text-2xl lg:text-4xl font-black">No Blogs Available</h4>
                     </div>
                 )}
 
@@ -100,4 +116,4 @@ function ShowAllCourse() {
     )
 }
 
-export default ShowAllCourse
+export default ShowAllBlog

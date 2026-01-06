@@ -3,6 +3,7 @@ import CoursesCard from "./CoursesCard"
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/redux/hook/hooks";
 import { courses } from "@/redux/feature/coursesSlice";
+import SkeletonCourseCard from "../utils/SkeletonCourses";
 
 
 function ShowAllCourse() {
@@ -35,7 +36,14 @@ function ShowAllCourse() {
     <div className="mt-8 md:mt-12 lg:mt-16">
       <Container>
         <p>Show {showCount} <span className="text-blue-600">Course</span> of {data.length} result</p>
-        {currentCourses.length !== 0 ? (
+        {loading?(
+           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7.5 my-10">
+                                  {Array.from({ length: 6 }).map((_, i) => (
+                                      <SkeletonCourseCard key={i} />
+                                  ))}
+                              </div>
+        )
+        :currentCourses.length !== 0 ? (
           <div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7.5 my-10">
               {currentCourses.map(course => (

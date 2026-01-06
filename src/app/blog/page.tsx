@@ -1,4 +1,6 @@
 'use client'
+import BlogCard from '@/components/blogs/BlogCard'
+import ShowAllBlog from '@/components/blogs/ShowAllBlogs'
 import PageHeader from '@/components/utils/PageHeader'
 import { usePathname } from 'next/navigation'
 import React from 'react'
@@ -9,6 +11,7 @@ function Blog() {
   return (
     <div>
         <PageHeader path={path}/>
+        <ShowAllBlog/>
     </div>
   )
 }
